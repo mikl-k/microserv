@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    #database: postgresql
+    show-sql: true
+    hibernate.ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: users_scheme
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/users
+    username: mikl
+    password: miklmk0778
+logging.level:
+  org.hibernate: INFO
+  org.hibernate.SQL: DEBUG
+  org.hibernate.cache: DEBUG
+  org.hibernate.stat: DEBUG
+debug: true

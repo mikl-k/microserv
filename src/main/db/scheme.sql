@@ -19,6 +19,7 @@ create table users_scheme.users
 ,   town character varying
 ,   email character varying
 ,   birthday date
+,   deleted boolean not null default FALSE
 ,   constraint users_pk primary key (id)
 );
 
