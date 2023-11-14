@@ -1,22 +1,30 @@
-package SkillBox.com.users;
+package com.skillbox.users;
 
-import SkillBox.com.users.entity.User;
-import SkillBox.com.users.repository.UserRepository;
+import com.skillbox.users.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 @SpringBootApplication
 public class UsersApplication {
 
+	final static Logger logger = LoggerFactory.getLogger(UsersApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(UsersApplication.class, args);
 	}
 
+	@Bean
+	CommandLineRunner demoJPA(UserRepository userRepository) {
+		return (args -> {
+			logger.info("logger info");
+			logger.debug("logger debug");
+		});
+	}
+
+/*
 	@Bean
 	CommandLineRunner demoJPA(UserRepository userRepository) {
 		return (args -> {
@@ -52,5 +60,5 @@ public class UsersApplication {
 			userRepository.delete(user1);
 
 		});
-	}
+	}*/
 }

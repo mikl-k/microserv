@@ -1,3 +1,7 @@
+my:
+  db:
+    schemaname: users_scheme
+
 spring:
   jpa:
     #database: postgresql
@@ -5,15 +9,19 @@ spring:
     hibernate.ddl-auto: validate
     properties:
       hibernate:
-        default_schema: users_scheme
+        default_schema: ${my.db.schemaname}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/users
-    username: mikl
-    password: miklmk0778
+    url: jdbc:postgresql://localhost:54321/users
+    username: test-user
+    password: test-password
+  liquibase:
+    default-schema: ${my.db.schemaname}
 logging.level:
   org.hibernate: INFO
   org.hibernate.SQL: DEBUG
   org.hibernate.cache: DEBUG
   org.hibernate.stat: DEBUG
-debug: true
+logging:
+  level:
+    root: info

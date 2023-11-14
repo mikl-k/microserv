@@ -1,4 +1,4 @@
-package SkillBox.com.users;
+package com.skillbox.users;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

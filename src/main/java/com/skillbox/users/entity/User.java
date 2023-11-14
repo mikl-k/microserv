@@ -1,4 +1,4 @@
-package SkillBox.com.users.entity;
+package com.skillbox.users.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
@@ -20,7 +20,7 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -60,15 +60,21 @@ public class User {
         this.birthday = birthday;
     }
 
+    public void unfollowAll() {
+        followUsers.clear();
+    }
     public boolean follow(User user) {
         return followUsers.add(new Followers(this, user));
     }
 
     public boolean unfollow(User user) {
-        return followUsers.remove(new Followers(this, user));
+        if (followUsers.remove(new Followers(this, user))) {
+            return followUsers.add(new Followers(this, user).setDeleted(true));
+        }
+        return false;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -106,6 +112,42 @@ public class User {
 
     public Set<Followers> getFollowUsers() {
         return followUsers;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public void setFollowUsers(Set<Followers> followUsers) {
+        this.followUsers = followUsers;
     }
 
     @Override

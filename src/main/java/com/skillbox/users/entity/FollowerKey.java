@@ -1,4 +1,4 @@
-package SkillBox.com.users.entity;
+package com.skillbox.users.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -9,12 +9,12 @@ import java.util.Objects;
 @Embeddable
 public class FollowerKey implements Serializable {
     @Column(name = "follower_id")
-    Integer followerId;
+    Long followerId;
 
     @Column(name = "publisher_id")
-    Integer publisherId;
+    Long publisherId;
 
-    public FollowerKey(Integer followerId, Integer publisherId) {
+    public FollowerKey(Long followerId, Long publisherId) {
         this.followerId = followerId;
         this.publisherId = publisherId;
     }

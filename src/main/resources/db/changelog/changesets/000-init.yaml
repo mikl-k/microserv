@@ -1,0 +1,92 @@
+databaseChangeLog:
+  - changeSet:
+      id: 000-1
+      author: mikl
+      changes:
+        - createSequence:
+            #schemaName: user_scheme
+            sequenceName: users_id_seq
+            dataType: bigint
+            incrementBy: 1
+            startValue: 1
+  - changeSet:
+      id: 000-2
+      author: mikl
+      changes:
+        - createTable:
+            #schemaName: users_scheme
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  defaultValueComputed: "nextval('users_id_seq')"
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar
+              - column:
+                  name: last_name
+                  type: varchar
+              - column:
+                  name: middle_name
+                  type: varchar
+              - column:
+                  name: sex
+                  type: char
+                  defaultValue: "M"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: town
+                  type: varchar
+              - column:
+                  name: email
+                  type: varchar
+              - column:
+                  name: birthday
+                  type: date
+              - column:
+                  name: deleted
+                  type: boolean
+                  defaultValue: "false"
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 000-3
+      author: mikl
+      changes:
+        - createTable:
+            #schemaName: users_scheme
+            tableName: followers
+            columns:
+              - column:
+                  name: follower_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_followers
+                    foreignKeyName: fk_follower_id
+                    #referencedTableSchemaName: users_scheme
+                    referencedTableName: users
+                    referencedColumnNames: id
+              - column:
+                  name: publisher_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_followers
+                    foreignKeyName: fk_publisher_id
+                    #referencedTableSchemaName: users_scheme
+                    referencedTableName: users
+                    referencedColumnNames: id
+              - column:
+                  name: deleted
+                  type: boolean
+                  defaultValue: "false"
+                  constraints:
+                    nullable: false
