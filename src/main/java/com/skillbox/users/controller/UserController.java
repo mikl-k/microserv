@@ -4,6 +4,9 @@ import com.skillbox.users.entity.User;
 import com.skillbox.users.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -24,8 +27,20 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @PutMapping("/{id}")
-    String updateUser(@RequestBody User user, @PathVariable Long id) {
+    @PatchMapping("/{id}")
+    String updateUser(@RequestBody Map<String, String> userDetails, @PathVariable Long id) {
+        User user = userService.getUser(id);
+        for(Map.Entry<String, String> entry: userDetails.entrySet()) {
+            switch (entry.getKey()) {
+                case "firstName" -> user.setFirstName(entry.getValue());
+                case "lastName" -> user.setLastName(entry.getValue());
+                case "middleName" -> user.setMiddleName(entry.getValue());
+                case "sex" -> user.setSex((entry.getValue()).charAt(0));
+                case "town" -> user.setTown(entry.getValue());
+                case "email" -> user.setEmail(entry.getValue());
+                case "birthday" -> user.setBirthday(LocalDate.parse(entry.getValue()));
+            }
+        }
         return userService.updateUser(user, id);
     }
 

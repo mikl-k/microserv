@@ -38,13 +38,16 @@ public class User {
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
 
-    @OneToMany(mappedBy = "follower",
+    @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    private Set<Followers> followUsers = new HashSet<>();
+    @JoinTable(name = "followers",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "publisher_id"))
+    private Set<User> followUsers = new HashSet<>();
 
 
     public User() {
@@ -60,18 +63,26 @@ public class User {
         this.birthday = birthday;
     }
 
+    public User(long id, String first_name, String last_name, String middle_name, char sex, String town, String email, LocalDate birthday) {
+        this.id = id;
+        this.firstName = first_name;
+        this.lastName = last_name;
+        this.middleName = middle_name;
+        this.sex = sex;
+        this.town = town;
+        this.email = email;
+        this.birthday = birthday;
+    }
+
     public void unfollowAll() {
         followUsers.clear();
     }
     public boolean follow(User user) {
-        return followUsers.add(new Followers(this, user));
+        return followUsers.add(user);
     }
 
     public boolean unfollow(User user) {
-        if (followUsers.remove(new Followers(this, user))) {
-            return followUsers.add(new Followers(this, user).setDeleted(true));
-        }
-        return false;
+        return followUsers.remove(user);
     }
 
     public Long getId() {
@@ -110,7 +121,7 @@ public class User {
         return deleted;
     }
 
-    public Set<Followers> getFollowUsers() {
+    public Set<User> getFollowUsers() {
         return followUsers;
     }
 
@@ -144,10 +155,6 @@ public class User {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public void setFollowUsers(Set<Followers> followUsers) {
-        this.followUsers = followUsers;
     }
 
     @Override

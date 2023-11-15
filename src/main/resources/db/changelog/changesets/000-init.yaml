@@ -4,7 +4,6 @@ databaseChangeLog:
       author: mikl
       changes:
         - createSequence:
-            #schemaName: user_scheme
             sequenceName: users_id_seq
             dataType: bigint
             incrementBy: 1
@@ -14,7 +13,6 @@ databaseChangeLog:
       author: mikl
       changes:
         - createTable:
-            #schemaName: users_scheme
             tableName: users
             columns:
               - column:
@@ -61,7 +59,6 @@ databaseChangeLog:
       author: mikl
       changes:
         - createTable:
-            #schemaName: users_scheme
             tableName: followers
             columns:
               - column:
@@ -71,7 +68,6 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_followers
                     foreignKeyName: fk_follower_id
-                    #referencedTableSchemaName: users_scheme
                     referencedTableName: users
                     referencedColumnNames: id
               - column:
@@ -81,12 +77,13 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_followers
                     foreignKeyName: fk_publisher_id
-                    #referencedTableSchemaName: users_scheme
                     referencedTableName: users
                     referencedColumnNames: id
               - column:
-                  name: deleted
-                  type: boolean
-                  defaultValue: "false"
+                  name: start_time
+                  type: timestamp
+                  defaultValueComputed: current_timestamp
                   constraints:
                     nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_followers

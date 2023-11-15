@@ -36,7 +36,7 @@ public class UserService {
 
         User saved = userRepository.save(user);
 
-        return String.format( "User '%s' saved", saved.getLastName() );
+        return String.format( "User '%s' updated", saved.getLastName() );
     }
 
     public String deleteUser(Long id) {
@@ -57,12 +57,13 @@ public class UserService {
 
     public String followUser(Long id, Long followId) {
         Optional<User> user = userRepository.findById(id);
-        Optional<User> followUser = userRepository.findById(followId);
 
         if (user.isEmpty()) {
             logger.error(String.format("User with id = %d not found", id));
             throw new ResponseStatusException(NOT_FOUND);
         }
+
+        Optional<User> followUser = userRepository.findById(followId);
 
         if (followUser.isEmpty()) {
             logger.error(String.format("User with id = %d not found", followId));
