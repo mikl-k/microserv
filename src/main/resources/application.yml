@@ -12,11 +12,12 @@ spring:
         default_schema: ${my.db.schemaname}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:54321/users
+    url: jdbc:postgresql://psql:5432/users
     username: test-user
     password: test-password
   liquibase:
     default-schema: ${my.db.schemaname}
+
 logging.level:
   org.hibernate: INFO
   org.hibernate.SQL: DEBUG

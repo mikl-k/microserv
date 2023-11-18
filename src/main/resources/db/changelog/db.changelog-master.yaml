@@ -2,3 +2,4 @@ databaseChangeLog:
   - includeAll:
       path: classpath:db/changelog/changesets
       errorIfMissingOrEmpty: false
+      relativeToChangelogFile: false

@@ -28,17 +28,17 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    String updateUser(@RequestBody Map<String, String> userDetails, @PathVariable Long id) {
+    String updateUser(@RequestBody Map<String, Object> userDetails, @PathVariable Long id) {
         User user = userService.getUser(id);
-        for(Map.Entry<String, String> entry: userDetails.entrySet()) {
+        for(Map.Entry<String, Object> entry: userDetails.entrySet()) {
             switch (entry.getKey()) {
-                case "firstName" -> user.setFirstName(entry.getValue());
-                case "lastName" -> user.setLastName(entry.getValue());
-                case "middleName" -> user.setMiddleName(entry.getValue());
-                case "sex" -> user.setSex((entry.getValue()).charAt(0));
-                case "town" -> user.setTown(entry.getValue());
-                case "email" -> user.setEmail(entry.getValue());
-                case "birthday" -> user.setBirthday(LocalDate.parse(entry.getValue()));
+                case "firstName" -> user.setFirstName(entry.getValue().toString());
+                case "lastName" -> user.setLastName(entry.getValue().toString());
+                case "middleName" -> user.setMiddleName(entry.getValue().toString());
+                case "sex" -> user.setSex((entry.getValue()).toString().charAt(0));
+                case "town" -> user.setTown(entry.getValue().toString());
+                case "email" -> user.setEmail(entry.getValue().toString());
+                case "birthday" -> user.setBirthday(LocalDate.parse(entry.getValue().toString()));
             }
         }
         return userService.updateUser(user, id);

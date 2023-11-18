@@ -1,4 +1,8 @@
-FROM ubuntu:latest
+FROM openjdk:17
 LABEL authors="mikl"
-
-ENTRYPOINT ["top", "-b"]
+RUN mkdir /app
+ARG JAR_FILE=build/libs/*SNAPSHOT.jar
+COPY ${JAR_FILE} /app/application.jar
+EXPOSE 8080
+WORKDIR /app
+ENTRYPOINT ["java", "-jar", "application.jar"]

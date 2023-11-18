@@ -2,8 +2,11 @@ version: "3.9"
 services:
   psql:
     image: postgres:16.0-alpine
+    container_name: psql
+    networks:
+      - local_net
     ports:
-      - "54321:5432"
+      - "5432:5432"
     volumes:
       - "/tmp/postgres-data:/var/lib/postresql/data"
     environment:
@@ -22,3 +25,17 @@ services:
         limits:
           cpus: '1'
           memory: 4G
+
+  user-srv:
+    build: .
+    container_name: user-srv
+    ports:
+      - "8080:8080"
+    links:
+      - "psql:database"
+    networks:
+      - local_net
+
+networks:
+  local_net:
+    name: local_net

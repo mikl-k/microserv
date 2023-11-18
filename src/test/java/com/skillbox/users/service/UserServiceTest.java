@@ -51,6 +51,23 @@ class UserServiceTest {
     }
 
     @Test
+    void getUserSuccess() {
+        //given
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+        User user = new User("Nikolay", "Petrov", "Ivanovich", User.MALE,
+                "Moscow", "petrov@mail.ru", LocalDate.of(1986, 7, 12));
+        User savedUser = new User(1L, "Nikolay", "Petrov", "Ivanovich", User.MALE,
+                "Moscow", "petrov@mail.ru", LocalDate.of(1986, 7, 12));
+
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(savedUser));
+        UserService userService = new UserService(userRepository);
+        //when
+        User result = userService.getUser(1L);
+        //then
+        Assertions.assertEquals(result, savedUser);
+    }
+
+    @Test
     void getUserError() {
         //given
         UserRepository userRepository = Mockito.mock(UserRepository.class);
@@ -188,6 +205,7 @@ class UserServiceTest {
                 "Belgorod", "vasin@yandex.ru", LocalDate.of(1980, 2, 23));
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         Mockito.when(userRepository.findById(2L)).thenReturn(Optional.of(follow));
+
         UserService userService = new UserService(userRepository);
 
         //when

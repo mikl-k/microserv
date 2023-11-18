@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.skillbox.users"})
 public class UsersApplication {
 
 	final static Logger logger = LoggerFactory.getLogger(UsersApplication.class);

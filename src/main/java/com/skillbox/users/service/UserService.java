@@ -14,8 +14,10 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+
     final static Logger logger = LoggerFactory.getLogger(UsersApplication.class);
+    private final UserRepository userRepository;
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -26,11 +28,15 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        return userRepository.findById(id).orElseThrow(() -> {
+            logger.error(String.format("User with id = %d not found", id));
+            return new ResponseStatusException(NOT_FOUND);
+        });
     }
 
     public String updateUser(User user, Long id) {
         if (!userRepository.existsById(id)) {
+            logger.error(String.format("User with id = %d not found", id));
             throw new ResponseStatusException(NOT_FOUND);
         }
 
@@ -43,6 +49,7 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isEmpty()) {
+            logger.error(String.format("User with id = %d not found", id));
             throw new ResponseStatusException(NOT_FOUND);
         }
 
