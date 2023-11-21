@@ -26,9 +26,10 @@ services:
           cpus: '1'
           memory: 4G
 
-  user-srv:
+  usersrv:
     build: .
-    container_name: user-srv
+    container_name: usersrv
+    image: usersrvimg
     ports:
       - "8081:8082"
     links:

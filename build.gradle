@@ -1,3 +1,4 @@
+import javax.swing.plaf.IconUIResource
 
 plugins {
 	id 'java'
@@ -7,6 +8,7 @@ plugins {
 	id "com.adarshr.test-logger" version "4.0.0"
 	id "com.bmuschko.docker-spring-boot-application" version "9.3.7"
 	id "com.github.ben-manes.versions" version "0.49.0"
+	id "com.avast.gradle.docker-compose" version "0.17.5"
 }
 
 group = 'SkillBox.com'
@@ -43,25 +45,18 @@ jar {
 	manifest {
 		attributes "Main-Class": "com.skillbox.users.UsersApplication"
 	}
-	processResources {
-		exclude('')
-	}
-}
 
-docker {
-	springBootApplication {
-		baseImage = 'openjdk:8-alpine'
-		ports = [9090, 8080]
-		images = ['users:0.0.1', 'awesome-spring-boot:latest']
-		jvmArgs = ['-Dspring.profiles.active=production', '-Xmx2048m']
+	processResources {
+		//exclude('db/changelog/db.changelog-test.yaml')
 	}
-	/*
-	javaApplication {
-		baseImage.set("eclipse-temurin:17.0.7_7-jre-focal")
-		maintainer.set("mikl")
-		images.set(asList("${project.name}:${project.version}"))
-	}*/
 }
+/*
+dockerCompose {
+	useComposeFiles = ['docker-compose.yaml']
+	isRequiredBy(project.tasks.test)
+	exposeAsSystemProperties(project.tasks.test)
+}
+*/
 
 testing {
 	suites {

@@ -17,6 +17,9 @@ spring:
     password: test-password
   liquibase:
     default-schema: ${my.db.schemaname}
+    #parameters:
+      #duplicate-file-mode: WARN
+    change-log: classpath:/db/changelog/db.changelog-test.yaml
 
 logging.level:
   org.hibernate: INFO
