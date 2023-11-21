@@ -6,7 +6,7 @@ services:
     networks:
       - local_net
     ports:
-      - "5432:5432"
+      - "54321:5432"
     volumes:
       - "/tmp/postgres-data:/var/lib/postresql/data"
     environment:
@@ -30,7 +30,7 @@ services:
     build: .
     container_name: user-srv
     ports:
-      - "8080:8080"
+      - "8081:8082"
     links:
       - "psql:database"
     networks:
