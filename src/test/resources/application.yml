@@ -19,7 +19,7 @@ spring:
     default-schema: ${my.db.schemaname}
     #parameters:
       #duplicate-file-mode: WARN
-    change-log: classpath:/db/changelog/db.changelog-test.yaml
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
 logging.level:
   org.hibernate: INFO
