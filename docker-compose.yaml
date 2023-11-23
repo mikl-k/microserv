@@ -8,7 +8,7 @@ services:
     ports:
       - "54321:5432"
     volumes:
-      - "/tmp/postgres-data:/var/lib/postresql/data"
+      - "/tmp/users-data:/var/lib/postgresql/data/"
     environment:
       POSTGRES_DB: users
       POSTGRES_USER: test-user
