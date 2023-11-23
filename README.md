@@ -1,11 +1,15 @@
 # Spring Boot Demo
 
-### How to build
+### How to build (with all tests)
 ```shell
 ./gradlew build
 ```
 
 ### Docker Compose
+#### Create /tmp/users-data for data persistence
+```shell
+mkdir /tmp/users-data
+```
 #### Start
 ```shell
 docker compose --project-name="user-demo" up -d

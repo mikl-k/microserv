@@ -4,7 +4,7 @@ my:
 
 spring:
   jpa:
-    #database: postgresql
+    database: postgresql
     show-sql: true
     hibernate.ddl-auto: validate
     properties:
@@ -17,14 +17,14 @@ spring:
     password: test-password
   liquibase:
     default-schema: ${my.db.schemaname}
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
 server:
   port: 8082
+
 logging.level:
   org.hibernate: INFO
   org.hibernate.SQL: DEBUG
   org.hibernate.cache: DEBUG
   org.hibernate.stat: DEBUG
-logging:
-  level:
-    root: info
+  root: info

@@ -4,21 +4,15 @@ my:
 
 spring:
   jpa:
-    #database: postgresql
+    database: postgresql
     show-sql: true
     hibernate.ddl-auto: validate
     properties:
       hibernate:
         default_schema: ${my.db.schemaname}
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:54321/users
-    username: test-user
-    password: test-password
+
   liquibase:
     default-schema: ${my.db.schemaname}
-    #parameters:
-      #duplicate-file-mode: WARN
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
 logging.level:
@@ -26,6 +20,4 @@ logging.level:
   org.hibernate.SQL: DEBUG
   org.hibernate.cache: DEBUG
   org.hibernate.stat: DEBUG
-logging:
-  level:
-    root: info
+  root: info
