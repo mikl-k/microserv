@@ -8,6 +8,7 @@ plugins {
 	id "com.bmuschko.docker-spring-boot-application" version "9.3.7"
 	id "com.github.ben-manes.versions" version "0.49.0"
 	id "com.avast.gradle.docker-compose" version "0.17.5"
+	id "jacoco"
 }
 
 group = 'SkillBox.com'
@@ -53,3 +54,31 @@ tasks.named('test') {
 	useJUnitPlatform()
 	environment("LIQUIBASE_DUPLICATE_FILE_MODE", "WARN") // because of bug: https://stackoverflow.com/questions/77301370/unable-to-set-duplicatefilemode-property-in-application-yaml-for-liquibase
 }
+
+jacoco {
+	toolVersion = "0.8.9"
+}
+
+test {
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.50
+			}
+		}
+	}
+}
+
